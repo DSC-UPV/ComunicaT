@@ -1,9 +1,6 @@
 import "package:flutter/material.dart";
-import 'package:keyboard_actions/keyboard_actions.dart';
-
 
 import "package:comunicat/objects/post.dart";
-import "package:comunicat/buttons/appbar_button.dart";
 
 class AddPostPage extends StatefulWidget {
   final Color color;
@@ -20,6 +17,12 @@ class AddPostPage extends StatefulWidget {
 class _AddPostPage extends State<AddPostPage> {
   Color _color;
   List<Post> _list;
+  String _title;
+  String _desc;
+  final TextEditingController _textEditControlTitle =
+      new TextEditingController();
+  final TextEditingController _textEditControlDesc =
+      new TextEditingController();
 
   @override
   void initState() {
@@ -36,69 +39,86 @@ class _AddPostPage extends State<AddPostPage> {
 
   @override
   Widget build(BuildContext context) {
-    final FocusNode _nodeText1 = FocusNode();
-    final FocusNode _nodeText2 = FocusNode();
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(),
         title: Text("Añade una entrada"),
-        actions: <Widget>[
-          AppBarButton(Icon(Icons.add)),
+      ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.all(10),
+            child: TextField(
+              enabled: true,
+              maxLength: 36,
+              maxLengthEnforced: true,
+              //style: TextStyle,
+              obscureText: false,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Introduce titulo para el post',
+              ),
+              controller: _textEditControlTitle,
+              onChanged: (String e) {
+                setState(
+                  () {
+                    _title = e;
+                  },
+                );
+              },
+              onSubmitted: _submissionTitle,
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(10),
+            child: TextField(
+              enabled: true,
+              maxLength: 1000,
+              maxLengthEnforced: true,
+              //style: TextStyle,
+              obscureText: false,
+              decoration: InputDecoration(
+                fillColor: _color,
+                focusColor: _color,
+                hoverColor: _color,
+                border: OutlineInputBorder(),
+                labelText: 'Introduce descripcion para el post',
+              ),
+              controller: _textEditControlDesc,
+              onChanged: (String e) {
+                setState(
+                  () {
+                    _desc = e;
+                  },
+                );
+              },
+              onSubmitted: _submissionDesc,
+            ),
+          ),
         ],
       ),
-      body: KeyboardActions(
-        config: _buildConfig(context, _nodeText1, _nodeText2),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  TextField(
-                    keyboardType: TextInputType.number,
-                    focusNode: _nodeText1,
-                    decoration: InputDecoration(
-                      hintText: "Input Number",
-                    ),
-                  ),
-                  TextField(
-                    keyboardType: TextInputType.text,
-                    focusNode: _nodeText2,
-                    decoration: InputDecoration(
-                      hintText: "Input Text with Custom Done Button",
-                    ),
-                  ),
-                ]),
-          ),
-        ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (_title != null && _desc != null) {
+            addToList(_title, _desc, _list);
+          }
+          Navigator.pop(context, true);
+        },
+        child: Icon(Icons.add_comment),
+        backgroundColor: _color,
       ),
     );
   }
 
-  KeyboardActionsConfig _buildConfig(
-      BuildContext context, FocusNode _nodeText1, FocusNode _nodeText2) {
-    return KeyboardActionsConfig(
-        keyboardActionsPlatform: KeyboardActionsPlatform.ALL,
-        keyboardBarColor: Colors.grey[200],
-        nextFocus: true,
-        actions: [
-          KeyboardAction(
-            focusNode: _nodeText1,
-          ),
-          KeyboardAction(
-            focusNode: _nodeText2,
-            toolbarButtons: [
-              (node) {
-                return GestureDetector(
-                  onTap: () => node.unfocus(),
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Icon(Icons.close),
-                  ),
-                );
-              }
-            ],
-          )
-        ]);
+  void _submissionTitle(String e) {
+    _title = _textEditControlTitle.text;
+  }
+
+  void _submissionDesc(String e) {
+    _desc = _textEditControlDesc.text;
+  }
+
+  void addToList(String t, String d, List<Post> l) {
+    l.add(Post(t, d));
   }
 }
