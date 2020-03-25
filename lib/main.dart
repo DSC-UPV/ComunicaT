@@ -1,11 +1,12 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 
 import "package:comunicat/objects/post.dart";
 import "package:comunicat/pages/list_page.dart";
 import "package:comunicat/buttons/home_button.dart";
 import "package:comunicat/buttons/appbar_button.dart";
 import "package:comunicat/buttons/config_button.dart";
-
+ import "package:comunicat/buttons/code_Button.dart";
+import "package:comunicat/my_flutter_app_icons.dart";
 void main() {
   runApp(ComunicaT());
 }
@@ -36,7 +37,7 @@ class _ComunicaT extends State<ComunicaT> {
         ListPage("Deportes", sportsList, Colors.deepOrange[800]);
     ListPage erasmusPage = ListPage("Erasmus", erasmusList, Colors.teal[800]);
     ListPage asosPage =
-        ListPage("Asociciones y mas", asosList, Colors.purple[800]);
+        ListPage("Asociciones y más", asosList, Colors.purple[800]);
     ListPage quejasPage = ListPage("Quejas", quejasList, Colors.yellow[800]);
     ListPage othersPage = ListPage("Otros", othersList, Colors.cyan[800]);
     classesList.add(Post("Doy clases de EDA",
@@ -54,8 +55,11 @@ class _ComunicaT extends State<ComunicaT> {
         appBar: AppBar(
           title: Text("ComunicaT"),
           actions: <Widget>[
+
             AppBarButton(Icon(Icons.account_circle)),
+
             ConfigButton(Icon(Icons.build), Brightness.dark),
+            CodeButton(Icon(Icons.code)),
           ],
         ),
         body: CustomScrollView(
@@ -80,6 +84,8 @@ class _ComunicaT extends State<ComunicaT> {
                       "Quejas", quejasPage),
                   HomeButton("assets/home_otros_icon.png", Colors.cyan, "Otros",
                       othersPage),
+
+
                 ],
               ),
             ),
