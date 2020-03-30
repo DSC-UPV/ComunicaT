@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:comunicat/pages/user_page.dart";
 
 class AppBarButton extends StatelessWidget {
   final Icon icon;
@@ -9,7 +10,16 @@ class AppBarButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: icon,
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return UserPage();//bright);
+            },
+          ),
+        );
+      },
     );
   }
 }
