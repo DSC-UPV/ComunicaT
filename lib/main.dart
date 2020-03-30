@@ -7,6 +7,8 @@ import "package:comunicat/buttons/appbar_button.dart";
 import "package:comunicat/buttons/config_button.dart";
  import "package:comunicat/buttons/code_Button.dart";
 import "package:comunicat/my_flutter_app_icons.dart";
+
+
 void main() {
   runApp(ComunicaT());
 }
@@ -24,6 +26,7 @@ class _ComunicaT extends State<ComunicaT> {
   }
 
   Widget build(BuildContext context) {
+
     List<Post> classesList = [];
     List<Post> sportsList = [];
     List<Post> erasmusList = [];
@@ -49,6 +52,7 @@ class _ComunicaT extends State<ComunicaT> {
     quejasList.add(Post("Buenas juego futbol", "Busco gente"));
     othersList.add(Post("Hola, busco ayuda sobre mi carrea",
         "Me llamo Jose y quiero entrar a informatica"));
+
     return MaterialApp(
       theme: ThemeData(brightness: Brightness.dark),
       home: Scaffold(

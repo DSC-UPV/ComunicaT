@@ -4,7 +4,8 @@ import "package:comunicat/objects/post.dart";
 import "package:comunicat/pages/post_page.dart";
 import "package:comunicat/pages/addpost_page.dart";
 import "package:comunicat/buttons/appbar_button.dart";
-
+import "package:comunicat/buttons/code_button.dart";
+import "package:comunicat/buttons/config_button.dart";
 class ListPage extends StatefulWidget {
   final String title;
   final List<Post> list;
@@ -54,7 +55,9 @@ class _ListPage extends State<ListPage> {
         title: Text(_title),
         actions: <Widget>[
           AppBarButton(Icon(Icons.account_circle)),
-          AppBarButton(Icon(Icons.build)),
+
+          ConfigButton(Icon(Icons.build), Brightness.dark),
+          CodeButton(Icon(Icons.code)),
         ],
       ),
       body: ListView.builder(
